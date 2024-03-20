@@ -5,13 +5,13 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity.MainActivity">
+    tools:context=".ui.activity.MainActivity">
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
+        android:name="com.yanuar.githubliteandroid.ui.fragment.SearchUserFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
-        android:name="com.yanuar.githubliteandroid.view.fragment.SearchUserFragment"
-        app:navGraph="@navigation/navigation_app"
-        />
+        app:navGraph="@navigation/navigation_app" />
 </androidx.constraintlayout.widget.ConstraintLayout>

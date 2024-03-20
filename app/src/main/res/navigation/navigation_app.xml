@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/searchUserFragment"
-        android:name="com.yanuar.githubliteandroid.view.fragment.SearchUserFragment"
+        android:name="com.yanuar.githubliteandroid.ui.fragment.SearchUserFragment"
         android:label="fragment_search_user"
         tools:layout="@layout/fragment_search_user" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailUserFragment"
-        android:name="com.yanuar.githubliteandroid.view.fragment.DetailUserFragment"
+        android:name="com.yanuar.githubliteandroid.ui.fragment.DetailUserFragment"
         android:label="fragment_detail_user"
         tools:layout="@layout/fragment_detail_user" />
 </navigation>
