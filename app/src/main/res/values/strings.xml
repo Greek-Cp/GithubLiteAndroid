@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GithubLiteAndroid</string>
+    <string name="searchbar_hint">Cari Username Github</string>
+</resources>
