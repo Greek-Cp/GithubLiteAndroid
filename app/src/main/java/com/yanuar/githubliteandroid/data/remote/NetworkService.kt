@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object NetworkService {
     private val authInterceptor = Interceptor { chain ->
         val newRequest = chain.request().newBuilder()
-            .addHeader("Authorization", "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")
+            .addHeader("Authorization", "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")
             .build()
         chain.proceed(newRequest)
     }
