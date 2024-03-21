@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -53,12 +54,23 @@ class ListUserFragment : Fragment() {
                     putString("username", username)
                 }
             }
-            // Melakukan transaksi penggantian Fragment
-            childFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, detailFragment)
-                .addToBackStack(null) // Optional, untuk menambahkan transaksi ke back stack
-                .commit()
+            requireActivity().supportFragmentManager.apply {
+                // Bersihkan back stack
+                popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
+                // Lakukan transaksi penggantian fragment
+                beginTransaction().apply {
+                    replace(R.id.fragment_container, detailFragment)
+                    commit()
+                }
+            }
+
+
         })
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
     private fun observeViewModel() {
         viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
