@@ -19,14 +19,12 @@ import com.yanuar.githubliteandroid.viewmodel.SearchUserViewModel
 
 class SearchUserFragment : Fragment() {
 
-
     private val viewModel: SearchUserViewModel by viewModels()
     private var _binding: FragmentSearchUserBinding? = null
     private val binding get()= _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         // TODO: Use the ViewModel
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

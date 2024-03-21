@@ -22,7 +22,6 @@ class ListUserViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
     fun fetchUserData(username: String, type: UserType) {
-        Log.e("ViewModel", "Error fetching data: ${username}")
         _isLoading.postValue(true) // Loading dimulai
 
         viewModelScope.launch {

@@ -66,7 +66,6 @@ class DetailUserFragment : Fragment() {
     private fun setupTabBar(username: String) {
         val adapter = TabsPagerAdapter(this, username)
         binding?.viewPager?.adapter = adapter
-
         TabLayoutMediator(binding!!.tabs, binding!!.viewPager) { tab, position ->
             tab.text = if (position == 0) "Followers" else "Following"
         }.attach()
@@ -93,6 +92,7 @@ class DetailUserFragment : Fragment() {
             .placeholder(shimmerDrawable)
             .into(  binding!!.imageView)
         binding!!.idTvNama.setText(users.name)
+        binding!!.idTvUsername.setText(users.login)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
