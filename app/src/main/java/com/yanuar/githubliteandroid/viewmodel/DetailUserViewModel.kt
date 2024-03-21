@@ -19,7 +19,6 @@ class DetailUserViewModel : ViewModel() {
     val snackbarText: LiveData<Event<String>> = _snackbarText
     private val githubApiService: GithubApiService = NetworkService.retrofit.create(GithubApiService::class.java)
 
-
     fun fetchUserDetail(username: String) {
 
         viewModelScope.launch {
@@ -32,11 +31,12 @@ class DetailUserViewModel : ViewModel() {
 
                     }
                 } else {
-                    // Handle error
-                    Log.e("ViewModel", "Error fetching user details: ${response.message()}")
+                    _snackbarText.value = Event("Mohon Maaf Telah Terjadi Error Harap Pastikan Ponsel Anda Memiliki Akses Internet ${response.message()}")
+
                 }
             } catch (e: Exception) {
-                Log.e("ViewModel", "Error fetching user details: ${e.message}")
+
+                _snackbarText.value = Event("Mohon Maaf Telah Terjadi Error Harap Pastikan Ponsel Anda Memiliki Akses Internet ${e.message}")
             }
         }
     }

@@ -29,16 +29,18 @@ class SearchUserViewModel() : ViewModel() {
                     response.body()?.let {
                         _searchResult.postValue(it)
                         _isLoading.postValue(false)
-                        _snackbarText.value = Event("Mencari User Dengan ${query}")
+                        if(query != "a"){
+                            _snackbarText.value = Event("Mencari User Dengan ${query}")
+                        }
                     }
                 } else {
-                    // Handle API error response
-                    Log.d("D:", response.message())
-                    _isLoading.postValue(false)
+                    _snackbarText.value = Event("Mohon Maaf Telah Terjadi Error Harap Pastikan Ponsel Anda Memiliki Akses Internet  ${response.message()}")
+
+                    _isLoading.postValue(true)
                 }
             } catch (e: Exception) {
-                _isLoading.postValue(false) // Loading selesai
-                Log.e("Error: ", e.message.toString());
+                _snackbarText.value = Event("Mohon Maaf Telah Terjadi Error Harap Pastikan Ponsel Anda Memiliki Akses Internet  ${e.message}")
+                _isLoading.postValue(true) // Loading selesai
 
 
             }

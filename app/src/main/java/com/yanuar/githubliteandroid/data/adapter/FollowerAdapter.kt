@@ -81,6 +81,6 @@ class FollowerAdapter(private var users: List<GithubUserFollowerItem>, private v
     fun updateUsers(newUsers: List<GithubUserFollowerItem>) {
         Log.d("update", "Update Users")
         this.users = newUsers
-        notifyDataSetChanged() // Notify any registered observers that the data set has changed.
+        notifyDataSetChanged()
     }
 }

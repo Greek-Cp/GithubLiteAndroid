@@ -56,9 +56,25 @@ class DetailUserFragment : Fragment() {
 //    private fun showLoading(isLoading: Boolean) {
 //        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
 //    }
+private fun startShimmer() {
+    binding!!.idShimmerFrameTop.startShimmer()
+
+    binding!!.idShimmerFrameFollower.startShimmer()
+    binding!!.idShimmerFrameFollowing.startShimmer()
+}
+
+    private fun stopShimmer() {
+
+        binding!!.idShimmerFrameTop.hideShimmer()
+        binding!!.idShimmerFrameFollower.hideShimmer()
+        binding!!.idShimmerFrameFollowing.hideShimmer()
+
+
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val username = arguments?.getString("username")
+        startShimmer()
         viewModel.fetchUserDetail(username!!)
         observeViewModel()
         setupTabBar(username)
@@ -74,6 +90,8 @@ class DetailUserFragment : Fragment() {
 
     private fun updateUI(users: GithubDetailAccount) {
         //(binding.idRecUser.adapter as? UserAdapter)?.updateUsers(users)
+        stopShimmer()
+
         binding!!.imageView
         val shimmer = Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
             .setDuration(1800) // how long the shimmering animation takes to do one full sweep
@@ -93,6 +111,9 @@ class DetailUserFragment : Fragment() {
             .into(  binding!!.imageView)
         binding!!.idTvNama.setText(users.name)
         binding!!.idTvUsername.setText(users.login)
+        binding!!.idTvJumlahFollowed.setText(users.following.toString())
+        binding!!.idTvJumlahFollower.setText(users.followers.toString())
+
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

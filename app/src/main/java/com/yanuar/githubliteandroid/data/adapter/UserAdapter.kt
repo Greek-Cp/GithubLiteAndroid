@@ -28,7 +28,6 @@ class UserAdapter(private var users: List<ItemsItem>, private val onItemClick: (
     interface OnImageLoadErrorListener {
         fun onImageLoadError(position: Int)
     }
-
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun formatDateString(originalDateString: String): String {
             val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
@@ -45,9 +44,9 @@ class UserAdapter(private var users: List<ItemsItem>, private val onItemClick: (
             textView.setOnClickListener{
                 onItemClick(item.login.toString())
             }
-            val textViewDescription = itemView.findViewById<TextView>(R.id.tvUserUrl)
+            val tv_username = itemView.findViewById<TextView>(R.id.tvUserName)
+            tv_username.setText(item.login)
             val imageView = itemView.findViewById<ImageView>(R.id.imgUserAvatar)
-            textView.setText(item.login)
 
             val shimmer = Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
                 .setDuration(1800) // how long the shimmering animation takes to do one full sweep
@@ -66,16 +65,8 @@ class UserAdapter(private var users: List<ItemsItem>, private val onItemClick: (
                 .placeholder(shimmerDrawable)
 
                 .into(imageView)
-//            textView.text = item.title
-//            textViewDescription.text = truncateText(item.shortDescription,88)
-//            textViewDatePublish.text = item.date
 
             itemView.setOnClickListener {
-//                val intent = Intent(itemView.context, DetailActivity::class.java).apply {
-//                    putExtra("EXTRA_NEWS", item)
-//                }
-//                itemView.context.startActivity(intent)
-
                 if (selectedPosition != adapterPosition) {
                     notifyItemChanged(selectedPosition)
                     selectedPosition = adapterPosition
@@ -84,13 +75,7 @@ class UserAdapter(private var users: List<ItemsItem>, private val onItemClick: (
             }
         }
     }
-    fun truncateText(text: String, maxLength: Int): String {
-        return if (text.length > maxLength) {
-            text.substring(0, maxLength - 3) + "..."
-        } else {
-            text
-        }
-    }
+
     var selectedPosition = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -21,6 +21,9 @@ class ListUserViewModel : ViewModel() {
     private val githubApiService: GithubApiService = NetworkService.retrofit.create(GithubApiService::class.java)
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+    private val _snackbarText = MutableLiveData<Event<String>>()
+    val snackbarText: LiveData<Event<String>> = _snackbarText
+
     fun fetchUserData(username: String, type: UserType) {
         _isLoading.postValue(true) // Loading dimulai
 
@@ -31,19 +34,20 @@ class ListUserViewModel : ViewModel() {
                     UserType.FOLLOWING -> githubApiService.getFollowing(username)
                 }
                 if (response.isSuccessful) {
+
                     _userData.postValue(response.body())
                     _isLoading.postValue(false) // Loading dimulai
 
                 } else {
-                    Log.e("ViewModel", "Error fetching data: ${response.message()}")
-                    _isLoading.postValue(false) // Loading dimulai
+                    _snackbarText.value = Event("Mohon Maaf Telah Terjadi Error ${response.message()}")
+
+                    _isLoading.postValue(true) // Loading dimulai
 
                 }
 
             } catch (e: Exception) {
-                Log.e("ViewModel", "Error fetching data: ${e.message}")
-                _isLoading.postValue(false) // Loading dimulai
-
+                _snackbarText.value = Event("Mohon Maaf Telah Terjadi Error ${e.message}")
+                _isLoading.postValue(true) // Loading dimulai
             }
         }
     }

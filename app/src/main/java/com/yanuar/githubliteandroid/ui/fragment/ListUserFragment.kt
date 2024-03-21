@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.yanuar.githubliteandroid.R
 import com.yanuar.githubliteandroid.data.adapter.FollowerAdapter
 import com.yanuar.githubliteandroid.data.adapter.UserAdapter
@@ -46,11 +47,31 @@ class ListUserFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.idListRecUser.layoutManager = LinearLayoutManager(context)
-        binding.idListRecUser.adapter = FollowerAdapter(emptyList(),{})
+        binding.idListRecUser.adapter = FollowerAdapter(emptyList(),{username ->
+            val detailFragment = DetailUserFragment().apply {
+                arguments = Bundle().apply {
+                    putString("username", username)
+                }
+            }
+            // Melakukan transaksi penggantian Fragment
+            childFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, detailFragment)
+                .addToBackStack(null) // Optional, untuk menambahkan transaksi ke back stack
+                .commit()
+        })
     }
     private fun observeViewModel() {
         viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
             showLoading(isLoading)
+        })
+        viewModel.snackbarText.observe(viewLifecycleOwner, {
+            it.getContentIfNotHandled()?.let { snackBarText ->
+                Snackbar.make(
+                    requireView().rootView,
+                    snackBarText,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
         })
         viewModel.userData.observe(viewLifecycleOwner, Observer { users ->
             (binding.idListRecUser.adapter as FollowerAdapter).updateUsers(users)

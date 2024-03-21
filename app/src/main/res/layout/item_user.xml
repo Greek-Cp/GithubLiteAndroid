@@ -18,7 +18,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
+            android:padding="10dp"
             >
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -34,7 +34,7 @@
 
             <TextView
                 android:id="@+id/tvUserName"
-                style="@style/HeaderStyle"
+                style="@style/HeaderStyleMedium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -44,8 +44,8 @@
                 app:layout_constraintTop_toTopOf="@+id/imgUserAvatar" />
 
             <TextView
-                android:id="@+id/tvUserUrl"
-                style="@style/DescriptionStyle"
+                android:id="@+id/id_tv_username"
+                style="@style/DescriptionStyleMedium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
