@@ -40,14 +40,14 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/roboto_bold</item>
-        <item name="android:textColor">@color/md_theme_light_onBackground</item>
+        <item name="android:textColor">@color/md_theme_dark_onBackground</item>
     </style>
     <style name="DescriptionStyleMedium" parent="TextAppearance.MaterialComponents.Body1">
         <!-- Contoh untuk Body1 -->
         <item name="android:textSize">11sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:fontFamily">@font/roboto_regular</item>
-        <item name="android:textColor">@color/md_theme_light_onBackground</item>
+        <item name="android:textColor">@color/md_theme_dark_onBackground</item>
     </style>
     <style name="DescriptionStyle" parent="TextAppearance.MaterialComponents.Body1">
         <!-- Contoh untuk Body1 -->

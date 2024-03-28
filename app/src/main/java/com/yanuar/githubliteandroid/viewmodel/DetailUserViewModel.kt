@@ -1,6 +1,5 @@
 package com.yanuar.githubliteandroid.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,9 +17,7 @@ class DetailUserViewModel : ViewModel() {
     private val _snackbarText = MutableLiveData<Event<String>>()
     val snackbarText: LiveData<Event<String>> = _snackbarText
     private val githubApiService: GithubApiService = NetworkService.retrofit.create(GithubApiService::class.java)
-
     fun fetchUserDetail(username: String) {
-
         viewModelScope.launch {
             try {
                 val response = githubApiService.getUserDetail(username)

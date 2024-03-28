@@ -1,6 +1,5 @@
 package com.yanuar.githubliteandroid.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -35,14 +34,11 @@ class SearchUserViewModel() : ViewModel() {
                     }
                 } else {
                     _snackbarText.value = Event("Mohon Maaf Telah Terjadi Error Harap Pastikan Ponsel Anda Memiliki Akses Internet  ${response.message()}")
-
                     _isLoading.postValue(true)
                 }
             } catch (e: Exception) {
                 _snackbarText.value = Event("Mohon Maaf Telah Terjadi Error Harap Pastikan Ponsel Anda Memiliki Akses Internet  ${e.message}")
                 _isLoading.postValue(true) // Loading selesai
-
-
             }
         }
     }

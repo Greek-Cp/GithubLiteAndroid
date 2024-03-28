@@ -55,12 +55,9 @@ class ListUserFragment : Fragment() {
                 }
             }
             requireActivity().supportFragmentManager.apply {
-                // Bersihkan back stack
-                popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-
-                // Lakukan transaksi penggantian fragment
                 beginTransaction().apply {
                     replace(R.id.fragment_container, detailFragment)
+                        .addToBackStack(null)
                     commit()
                 }
             }

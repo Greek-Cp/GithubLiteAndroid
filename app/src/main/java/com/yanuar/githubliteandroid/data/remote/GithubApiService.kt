@@ -2,13 +2,8 @@ package com.yanuar.githubliteandroid.data.remote
 
 import com.yanuar.githubliteandroid.data.model.GithubDetailAccount
 import com.yanuar.githubliteandroid.data.model.GithubSearchResponse
-import com.yanuar.githubliteandroid.data.model.GithubUserFollower
 import com.yanuar.githubliteandroid.data.model.GithubUserFollowerItem
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

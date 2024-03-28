@@ -1,13 +1,12 @@
 package com.yanuar.githubliteandroid.ui.fragment
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -18,11 +17,9 @@ import com.yanuar.githubliteandroid.databinding.FragmentSearchUserBinding
 import com.yanuar.githubliteandroid.viewmodel.SearchUserViewModel
 
 class SearchUserFragment : Fragment() {
-
     private val viewModel: SearchUserViewModel by viewModels()
     private var _binding: FragmentSearchUserBinding? = null
     private val binding get()= _binding!!
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // TODO: Use the ViewModel
@@ -42,14 +39,12 @@ class SearchUserFragment : Fragment() {
                     putString("username", username)
                 }
             }
-            // Melakukan transaksi penggantian Fragment
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, detailFragment)
                 .addToBackStack(null) // Optional, untuk menambahkan transaksi ke back stack
                 .commit()
         })
     }
-
     private fun setupSearchView() {
         with(binding) {
             searchView.setupWithSearchBar(searchBar)
@@ -61,9 +56,9 @@ class SearchUserFragment : Fragment() {
                         searchBar.setText(searchView.text)
                         searchView.hide()
                     }
-                    true // Consume the action
+                    true
                 } else {
-                    false // Do not consume the action
+                    false
                 }
             }
         }
@@ -90,23 +85,18 @@ class SearchUserFragment : Fragment() {
             }
         })
     }
-
     private fun updateUI(users: List<ItemsItem>) {
         (binding.idRecUser.adapter as? UserAdapter)?.updateUsers(users)
     }
-
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSearchUserBinding.inflate(inflater,container,false)
-
         return binding?.root
     }
     companion object {

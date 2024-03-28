@@ -9,14 +9,15 @@ android {
     compileSdk = 34
 
     defaultConfig {
+        buildConfigField("String","API_KEY","\"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\"")
         applicationId = "com.yanuar.githubliteandroid"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
 
     buildTypes {
         release {
@@ -28,6 +29,7 @@ android {
         }
     }
     buildFeatures{
+        buildConfig = true
         viewBinding = true
     }
     compileOptions {
