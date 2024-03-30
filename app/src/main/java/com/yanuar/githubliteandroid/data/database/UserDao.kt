@@ -7,17 +7,14 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.yanuar.githubliteandroid.data.model.UserFav
 import kotlinx.coroutines.flow.Flow
-
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertUser(userFav: UserFav)
-
     @Delete
     suspend fun deleteUser(userFav: UserFav)
-
     @Query("SELECT * FROM UserFav")
-    suspend fun getAllFavoriteUsers(): List<UserFav>
+    fun getAllFavoriteUsers(): Flow<List<UserFav>>
 
     @Query("SELECT * FROM UserFav WHERE username LIKE :username")
     fun searchFavoriteUsersByUsername(username: String): Flow<List<UserFav>>

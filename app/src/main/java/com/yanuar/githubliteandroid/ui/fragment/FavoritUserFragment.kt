@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.yanuar.githubliteandroid.R
 import com.yanuar.githubliteandroid.data.adapter.FavoritUserAdapter
 import com.yanuar.githubliteandroid.data.database.UserFavDatabase
@@ -14,27 +15,22 @@ import com.yanuar.githubliteandroid.data.repository.UserFavRepository
 import com.yanuar.githubliteandroid.databinding.FragmentFavoriteUserBinding
 import com.yanuar.githubliteandroid.viewmodel.FavoritUserViewModel
 import com.yanuar.githubliteandroid.viewmodel.FavoritUserViewModelFactory
+import kotlinx.coroutines.launch
 
 class FavoritUserFragment : Fragment() {
-
     private var _binding: FragmentFavoriteUserBinding? = null
     private val binding get() = _binding!!
-
-    // Inisialisasi ViewModel dengan factory
     private val viewModel: FavoritUserViewModel by viewModels {
         val userDao = UserFavDatabase.getDatabase(requireContext()).userDao()
         val repository = UserFavRepository(userDao)
         FavoritUserViewModelFactory(repository)
     }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentFavoriteUserBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Set up RecyclerView and Adapter
         val adapter = FavoritUserAdapter(listOf()) { username ->
             val detailFragment = DetailUserFragment().apply {
                 arguments = Bundle().apply {
@@ -43,13 +39,13 @@ class FavoritUserFragment : Fragment() {
             }
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, detailFragment)
-                .addToBackStack(null) // Optional, untuk menambahkan transaksi ke back stack
+                .addToBackStack(null)
                 .commit()        }
         binding.idRecFavUser.adapter = adapter
-
-        // Observe ViewModel data and update UI
-        viewModel.favoriteUsers.observe(viewLifecycleOwner) { users ->
-            adapter.updateUsers(users)
+        lifecycleScope.launch {
+            viewModel.favoriteUsers.collect { users ->
+                adapter.updateUsers(users)
+            }
         }
         binding.idBackBtn.setOnClickListener{
             parentFragmentManager.beginTransaction()
@@ -74,7 +70,6 @@ class FavoritUserFragment : Fragment() {
         }
 
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

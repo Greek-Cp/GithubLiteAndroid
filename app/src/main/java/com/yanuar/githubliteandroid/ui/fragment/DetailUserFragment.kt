@@ -21,15 +21,8 @@ import com.yanuar.githubliteandroid.data.repository.UserFavRepository
 import com.yanuar.githubliteandroid.databinding.FragmentDetailUserBinding
 import com.yanuar.githubliteandroid.viewmodel.DetailUserViewModel
 import com.yanuar.githubliteandroid.viewmodel.DetailUserViewModelFactory
-
 class DetailUserFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = DetailUserFragment()
-    }
-
     private lateinit var viewModel: DetailUserViewModel
-
     private var _binding: FragmentDetailUserBinding? = null
     private val binding get() = _binding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,13 +44,11 @@ class DetailUserFragment : Fragment() {
             }
         })
     }
-
     private fun startShimmer() {
         binding!!.idShimmerFrameTop.startShimmer()
         binding!!.idShimmerFrameFollower.startShimmer()
         binding!!.idShimmerFrameFollowing.startShimmer()
     }
-
     private fun stopShimmer() {
         binding!!.idShimmerFrameTop.hideShimmer()
         binding!!.idShimmerFrameFollower.hideShimmer()
@@ -65,7 +56,6 @@ class DetailUserFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val userDao = UserFavDatabase.getDatabase(requireContext()).userDao()
         val userFavRepository = UserFavRepository(userDao)
         val factory = DetailUserViewModelFactory(userFavRepository)
@@ -75,7 +65,10 @@ class DetailUserFragment : Fragment() {
         viewModel.fetchUserDetail(username!!)
         observeViewModel()
         setupTabBar(username)
+        binding!!.idBackBtnDetail.setOnClickListener{
+            requireActivity().supportFragmentManager.popBackStack()
 
+        }
     }
     private fun setupTabBar(username: String) {
         val adapter = TabsPagerAdapter(this, username)
@@ -85,17 +78,15 @@ class DetailUserFragment : Fragment() {
         }.attach()
     }
     private fun updateUI(users: GithubDetailAccount) {
-        //(binding.idRecUser.adapter as? UserAdapter)?.updateUsers(users)
         stopShimmer()
         binding!!.imageView
-        val shimmer = Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
-            .setDuration(1800) // how long the shimmering animation takes to do one full sweep
-            .setBaseAlpha(0.7f) //the alpha of the underlying children
-            .setHighlightAlpha(0.6f) // the shimmer alpha amount
+        val shimmer = Shimmer.AlphaHighlightBuilder()
+            .setDuration(1800)
+            .setBaseAlpha(0.7f)
+            .setHighlightAlpha(0.6f)
             .setDirection(Shimmer.Direction.RIGHT_TO_LEFT)
             .setAutoStart(true)
             .build()
-
         val shimmerDrawable = ShimmerDrawable().apply {
             setShimmer(shimmer)
         }
@@ -116,7 +107,6 @@ class DetailUserFragment : Fragment() {
         }
 
         binding!!.btnFav.setOnClickListener {
-            // Pengecekan dan aksi berdasarkan status isFav saat tombol diklik
             val currentUserFav = UserFav(username, users.avatarUrl)
             if (viewModel.isUserFav.value == true) {
                 viewModel.deleteUser(currentUserFav)
@@ -133,4 +123,8 @@ class DetailUserFragment : Fragment() {
         _binding = FragmentDetailUserBinding.inflate(inflater,container,false)
         return _binding?.root
     }
+    companion object {
+        fun newInstance() = DetailUserFragment()
+    }
+
 }

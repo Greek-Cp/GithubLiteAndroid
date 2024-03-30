@@ -1,37 +1,25 @@
 package com.yanuar.githubliteandroid.ui.fragment
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.yanuar.githubliteandroid.R
 import com.yanuar.githubliteandroid.data.adapter.FollowerAdapter
-import com.yanuar.githubliteandroid.data.adapter.UserAdapter
-import com.yanuar.githubliteandroid.data.model.ItemsItem
 import com.yanuar.githubliteandroid.databinding.FragmentListUserBinding
-import com.yanuar.githubliteandroid.databinding.FragmentSearchUserBinding
 import com.yanuar.githubliteandroid.viewmodel.ListUserViewModel
 
 class ListUserFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = ListUserFragment()
-    }
-
     private val viewModel: ListUserViewModel by viewModels()
     private var _binding: FragmentListUserBinding? = null
     private val binding get()= _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,7 +33,6 @@ class ListUserFragment : Fragment() {
         }
         observeViewModel()
     }
-
     private fun setupRecyclerView() {
         binding.idListRecUser.layoutManager = LinearLayoutManager(context)
         binding.idListRecUser.adapter = FollowerAdapter(emptyList(),{username ->
@@ -61,8 +48,6 @@ class ListUserFragment : Fragment() {
                     commit()
                 }
             }
-
-
         })
     }
     override fun onDestroyView() {
@@ -97,5 +82,8 @@ class ListUserFragment : Fragment() {
         val sectionNumber = arguments?.getInt("section_number")
 
         return _binding?.root
+    }
+    companion object {
+        fun newInstance() = ListUserFragment()
     }
 }

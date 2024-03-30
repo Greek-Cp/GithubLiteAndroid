@@ -12,7 +12,6 @@ import com.yanuar.githubliteandroid.util.Event
 import kotlinx.coroutines.launch
 
 class ListUserViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
     private val _userData = MutableLiveData<List<GithubUserFollowerItem>>()
     val userData: LiveData<List<GithubUserFollowerItem>> = _userData
     private val githubApiService: GithubApiService = NetworkService.retrofit.create(GithubApiService::class.java)
@@ -21,7 +20,7 @@ class ListUserViewModel : ViewModel() {
     private val _snackbarText = MutableLiveData<Event<String>>()
     val snackbarText: LiveData<Event<String>> = _snackbarText
     fun fetchUserData(username: String, type: UserType) {
-        _isLoading.postValue(true) // Loading dimulai
+        _isLoading.postValue(true)
         viewModelScope.launch {
             try {
                 val response = when (type) {
@@ -30,16 +29,16 @@ class ListUserViewModel : ViewModel() {
                 }
                 if (response.isSuccessful) {
                     _userData.postValue(response.body())
-                    _isLoading.postValue(false) // Loading dimulai
+                    _isLoading.postValue(false)
                 } else {
                     Log.e("Error", response.message())
                     _snackbarText.value = Event("Mohon Maaf Telah Terjadi Error ${response.message()}")
-                    _isLoading.postValue(true) // Loading dimulai
+                    _isLoading.postValue(true)
                 }
             } catch (e: Exception) {
                 Log.e("Error", e.message.toString())
                 _snackbarText.value = Event("Mohon Maaf Telah Terjadi Error ${e.message}")
-                _isLoading.postValue(true) // Loading dimulai
+                _isLoading.postValue(true)
             }
         }
     }

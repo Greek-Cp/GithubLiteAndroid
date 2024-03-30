@@ -16,7 +16,6 @@ import com.yanuar.githubliteandroid.R
 import com.yanuar.githubliteandroid.data.model.GithubUserFollowerItem
 
 class FollowerAdapter(private var users: List<GithubUserFollowerItem>, private val onItemClick: (String) -> Unit) : RecyclerView.Adapter<FollowerAdapter.ViewHolder>() {
-
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: GithubUserFollowerItem, isSelected: Boolean){
             val textViewUsername = itemView.findViewById<TextView>(R.id.tvUserName)
@@ -39,7 +38,6 @@ class FollowerAdapter(private var users: List<GithubUserFollowerItem>, private v
             Glide.with(itemView.context)
                 .load(item.avatarUrl)
                 .placeholder(shimmerDrawable)
-
                 .into(imageView)
             itemView.setOnClickListener {
                 if (selectedPosition != adapterPosition) {
@@ -51,18 +49,15 @@ class FollowerAdapter(private var users: List<GithubUserFollowerItem>, private v
         }
     }
     var selectedPosition = RecyclerView.NO_POSITION
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
         return ViewHolder(view)
     }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val category = users[position]
         val isSelected = position == selectedPosition
         holder.bind(category, isSelected)
     }
-
     override fun getItemCount(): Int = users.size
     fun updateUsers(newUsers: List<GithubUserFollowerItem>) {
         Log.d("update", "Update Users")

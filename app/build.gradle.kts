@@ -11,6 +11,7 @@ android {
 
     defaultConfig {
         buildConfigField("String","API_KEY","\"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\"")
+        buildConfigField("String","URL_WEB","\"https://api.github.com/\"")
         applicationId = "com.yanuar.githubliteandroid"
         minSdk = 24
         targetSdk = 34
@@ -50,8 +51,10 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation(libs.androidx.fragment.testing)
     ksp("androidx.room:room-compiler:2.5.2")
     implementation("androidx.room:room-runtime:2.5.2")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
     implementation("androidx.room:room-ktx:2.5.2")
     ksp("androidx.room:room-compiler:2.5.2")
@@ -65,6 +68,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.fragment.ktx)
     testImplementation(libs.junit)
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

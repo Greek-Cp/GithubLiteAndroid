@@ -19,9 +19,7 @@ class DetailUserViewModel(private val repository: UserFavRepository) : ViewModel
     val userDetail: LiveData<GithubDetailAccount> = _userDetail
     private val _snackbarText = MutableLiveData<Event<String>>()
     val snackbarText: LiveData<Event<String>> = _snackbarText
-
     private val githubApiService: GithubApiService = NetworkService.retrofit.create(GithubApiService::class.java)
-
     fun fetchUserDetail(username: String) {
         viewModelScope.launch {
             try {
@@ -41,24 +39,20 @@ class DetailUserViewModel(private val repository: UserFavRepository) : ViewModel
     }
     private val _isUserFav = MutableLiveData<Boolean>()
     val isUserFav: LiveData<Boolean> = _isUserFav
-    fun checkUserAdded(username: String, onResult: (Boolean) -> Unit) = viewModelScope.launch {
-        val isAdded = repository.isUserAdded(username)
-        onResult(isAdded)
-    }
+
     fun checkUserExistence(username: String) = viewModelScope.launch {
         val isAdded = repository.isUserAdded(username)
         _isUserFav.postValue(isAdded)
     }
     fun insertUser(userFav: UserFav) = viewModelScope.launch {
         repository.insert(userFav)
-        checkUserExistence(userFav.username) // Memperbarui status
+        checkUserExistence(userFav.username)
     }
 
     fun deleteUser(userFav: UserFav) = viewModelScope.launch {
         repository.delete(userFav)
-        checkUserExistence(userFav.username) // Memperbarui status
+        checkUserExistence(userFav.username)
     }
-
 
     companion object {
         fun create(context: Context): DetailUserViewModel {

@@ -1,222 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.DetailUserFragment">
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageView"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-
-        android:layout_marginLeft="@dimen/margin_left_arrow"
-        android:layout_marginTop="20dp"
-
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@+id/id_back_btn_detail"
-        app:shapeAppearanceOverlay="@style/CircleProfilePic" />
-
-
-
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:padding="10dp"
-        android:src="@drawable/baseline_arrow_back_ios_24"
-        app:tint="?attr/colorPrimary"
-        android:id="@+id/id_back_btn_detail"
-
-        android:layout_marginLeft="@dimen/margin_left_arrow"
-        android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/textView2"
-        style="@style/HeaderStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Detail Account"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_fav"
-        app:layout_constraintEnd_toStartOf="@+id/btn_fav"
-        app:layout_constraintStart_toEndOf="@+id/id_back_btn_detail"
-        app:layout_constraintTop_toTopOf="@+id/btn_fav" />
+        tools:context=".ui.fragment.DetailUserFragment">
 
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/id_shimmer_frame_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="20dp"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageView"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/margin_left_arrow"
+            android:layout_marginTop="20dp"
+
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/id_back_btn_detail"
+            app:shapeAppearanceOverlay="@style/CircleProfilePic" />
+
+
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:src="@drawable/baseline_arrow_back_ios_24"
+            app:tint="?attr/colorPrimary"
+            android:background="?attr/selectableItemBackground"
+            android:id="@+id/id_back_btn_detail"
+            android:layout_marginLeft="@dimen/margin_left_arrow"
+            android:layout_marginTop="60dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/HeaderStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            >
+            android:text="Detail Account"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_fav"
+            app:layout_constraintEnd_toStartOf="@+id/btn_fav"
+            app:layout_constraintStart_toEndOf="@+id/id_back_btn_detail"
+            app:layout_constraintTop_toTopOf="@+id/btn_fav" />
 
-            <TextView
-                android:id="@+id/id_tv_nama"
-                style="@style/HeaderStyle"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Memuat Nama"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/id_tv_username"
-                style="@style/DescriptionStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Memuat Username"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/id_tv_nama" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.facebook.shimmer.ShimmerFrameLayout>/
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView"
-        style="@style/Widget.Material3.CardView.Filled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="@+id/id_shimmer_frame_top"
-        app:layout_constraintTop_toBottomOf="@+id/id_shimmer_frame_top">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/id_shimmer_frame_top"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="20dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView">
 
-            <TextView
-                android:id="@+id/id_tv_header_followed"
-                style="@style/HeaderStyleMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Following"
-                app:layout_constraintEnd_toEndOf="parent"
-
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/id_shimmer_frame_following"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/id_tv_header_followed">
+                >
 
                 <TextView
-                    android:id="@+id/id_tv_jumlah_followed"
-                    style="@style/DescriptionStyleMedium"
+                    android:id="@+id/id_tv_nama"
+                    style="@style/HeaderStyle"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Memuat follower" />
+                    android:text="Memuat Nama"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </com.facebook.shimmer.ShimmerFrameLayout>
+                <TextView
+                    android:id="@+id/id_tv_username"
+                    style="@style/DescriptionStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Memuat Username"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/id_tv_nama" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>/
 
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_followerd"
-        style="@style/Widget.Material3.CardView.Filled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        app:layout_constraintStart_toEndOf="@+id/materialCardView"
-        app:layout_constraintTop_toBottomOf="@+id/id_shimmer_frame_top">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            style="@style/Widget.Material3.CardView.Filled"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="@+id/id_shimmer_frame_top"
+            app:layout_constraintTop_toBottomOf="@+id/id_shimmer_frame_top">
 
-            <TextView
-                android:id="@+id/id_tv_header_follower"
-                style="@style/HeaderStyleMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Followers"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/id_shimmer_frame_follower"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/id_tv_header_follower">
+                android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/id_tv_jumlah_follower"
-                    style="@style/DescriptionStyleMedium"
+                    android:id="@+id/id_tv_header_followed"
+                    style="@style/HeaderStyleMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="follower"
+                    android:text="Following"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/id_shimmer_frame_following"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/id_tv_header_followed">
+
+                    <TextView
+                        android:id="@+id/id_tv_jumlah_followed"
+                        style="@style/DescriptionStyleMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Memuat follower" />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_followerd"
+            style="@style/Widget.Material3.CardView.Filled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintStart_toEndOf="@+id/materialCardView"
+            app:layout_constraintTop_toBottomOf="@+id/id_shimmer_frame_top">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/id_tv_header_follower"
+                    style="@style/HeaderStyleMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Followers"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/id_tv_header_follower"
-                    app:layout_constraintTop_toBottomOf="@+id/id_tv_header_follower" />
+
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/id_shimmer_frame_follower"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/id_tv_header_follower">
+
+                    <TextView
+                        android:id="@+id/id_tv_jumlah_follower"
+                        style="@style/DescriptionStyleMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="follower"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/id_tv_header_follower"
+                        app:layout_constraintTop_toBottomOf="@+id/id_tv_header_follower" />
 
 
-            </com.facebook.shimmer.ShimmerFrameLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+            />
 
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="900dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabs" />
 
-        />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginRight="@dimen/margin_left_arrow"
+            android:backgroundTint="?attr/colorPrimaryContainer"
+            android:contentDescription="@string/love_button"
+            android:src="@drawable/baseline_favorite_border_24"
+            app:layout_constraintBottom_toBottomOf="@+id/id_back_btn_detail"
+            app:layout_constraintEnd_toEndOf="@+id/view_pager"
+            app:layout_constraintTop_toTopOf="@+id/id_back_btn_detail"
+            app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabs" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_fav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_marginRight="@dimen/margin_left_arrow"
-        android:backgroundTint="?attr/colorPrimaryContainer"
-        android:contentDescription="@string/love_button"
-        android:src="@drawable/baseline_favorite_border_24"
-        app:layout_constraintBottom_toBottomOf="@+id/id_back_btn_detail"
-        app:layout_constraintEnd_toEndOf="@+id/view_pager"
-        app:layout_constraintTop_toTopOf="@+id/id_back_btn_detail"
-        app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

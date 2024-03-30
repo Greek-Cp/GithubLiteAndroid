@@ -13,7 +13,6 @@ import com.facebook.shimmer.ShimmerDrawable
 import com.google.android.material.card.MaterialCardView
 import com.yanuar.githubliteandroid.R
 import com.yanuar.githubliteandroid.data.model.ItemsItem
-
 class UserAdapter(private var users: List<ItemsItem>, private val onItemClick: (String) -> Unit) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: ItemsItem, isSelected: Boolean){

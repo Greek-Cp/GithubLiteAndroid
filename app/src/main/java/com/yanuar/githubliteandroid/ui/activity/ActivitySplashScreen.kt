@@ -9,9 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.yanuar.githubliteandroid.R
-
 class ActivitySplashScreen : AppCompatActivity() {
-    private val splashTimeOut: Long = 3000 // Total splash screen timer 3 detik
+    private val splashTimeOut: Long = 3000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +27,7 @@ class ActivitySplashScreen : AppCompatActivity() {
             Handler(Looper.getMainLooper()).postDelayed({
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
-            }, 500) // Durasi fade out adalah 500 ms, sesuai dengan durasi animasi fade_out.xml
-        }, splashTimeOut - 500) // Mulai fade out 500 ms sebelum splash time out
+            }, 500)
+        }, splashTimeOut - 500)
     }
 }

@@ -1,42 +1,36 @@
 package com.yanuar.githubliteandroid.viewmodel
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yanuar.githubliteandroid.data.database.UserFavDatabase
 import com.yanuar.githubliteandroid.data.model.UserFav
 import com.yanuar.githubliteandroid.data.repository.UserFavRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class FavoritUserViewModel(private val repository: UserFavRepository) : ViewModel() {
 
-    private val _favoriteUsers = MutableLiveData<List<UserFav>>()
-    val favoriteUsers: LiveData<List<UserFav>> = _favoriteUsers
-    private val _isUserFav = MutableLiveData<Boolean>()
-    val isUserFav: LiveData<Boolean> = _isUserFav
+    private val _favoriteUsers = MutableStateFlow<List<UserFav>>(emptyList())
+    val favoriteUsers: StateFlow<List<UserFav>> = _favoriteUsers.asStateFlow()
 
 
     init {
         loadFavoriteUsers()
     }
-    fun checkUserExistence(username: String) = viewModelScope.launch {
-        _isUserFav.value = repository.isUserFavExists(username)
-    }
+
     private fun loadFavoriteUsers() = viewModelScope.launch {
-        _favoriteUsers.value = repository.getFavoriteUsers()
+        repository.getFavoriteUsers().collect { users ->
+            _favoriteUsers.value = users
+        }
     }
     fun searchFavoriteUsers(username: String) = viewModelScope.launch {
         val query = "%$username%"
         repository.searchFavoriteUsersByUsername(query).collect { searchResults ->
             _favoriteUsers.value = searchResults
         }
-    }
-
-    fun insertUser(userFav: UserFav) = viewModelScope.launch {
-        repository.insert(userFav)
-        loadFavoriteUsers() // Muat ulang daftar pengguna favorit setelah menambahkan baru
     }
     companion object {
         fun create(context: Context): FavoritUserViewModel {

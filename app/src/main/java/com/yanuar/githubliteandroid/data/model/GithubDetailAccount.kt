@@ -1,9 +1,7 @@
 package com.yanuar.githubliteandroid.data.model
 
 import com.google.gson.annotations.SerializedName
-
 data class GithubDetailAccount(
-
 	@field:SerializedName("gists_url")
 	val gistsUrl: String? = null,
 

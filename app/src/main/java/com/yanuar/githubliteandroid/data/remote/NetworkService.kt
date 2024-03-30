@@ -12,13 +12,11 @@ object NetworkService {
             .build()
         chain.proceed(newRequest)
     }
-
     private val client = OkHttpClient.Builder()
         .addInterceptor(authInterceptor)
         .build()
-
     val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("https://api.github.com/")
+        .baseUrl(com.yanuar.githubliteandroid.BuildConfig.URL_WEB)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()

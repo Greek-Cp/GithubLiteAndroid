@@ -26,18 +26,17 @@ class SearchUserFragment : Fragment() {
     private val viewModel: SearchUserViewModel by viewModels()
     private var _binding: FragmentSearchUserBinding? = null
     private val binding get()= _binding!!
-
     private val settingPreferences: SettingAppPreferences by lazy {
         SettingAppPreferences.getInstance(requireContext().dataStore)
     }
     private fun darkModeFeature() {
+
         settingPreferences.getThemeSetting().asLiveData().observe(viewLifecycleOwner) { isDarkModeActive ->
+            binding.imageDark.tag = if (isDarkModeActive) "darkModeIcon" else "lightModeIcon"
             val iconRes = if (isDarkModeActive) R.drawable.baseline_light_mode_24 else R.drawable.baseline_dark_mode_24
             binding.imageDark.setImageResource(iconRes)
         }
-
-        // Mengatur OnClickListener untuk toggle dark mode
-        binding.idDarkMode.setOnClickListener {
+        binding.imageDark.setOnClickListener {
             lifecycleScope.launch {
                 val currentMode = settingPreferences.getThemeSetting().first()
                 settingPreferences.saveThemeSetting(!currentMode)
@@ -67,7 +66,7 @@ class SearchUserFragment : Fragment() {
             }
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, detailFragment)
-                .addToBackStack(null) // Optional, untuk menambahkan transaksi ke back stack
+                .addToBackStack(null)
                 .commit()
         })
     }

@@ -10,15 +10,18 @@
 
 
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageButton
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:id="@+id/id_back_btn"
+
         android:src="@drawable/baseline_arrow_back_ios_24"
         android:layout_marginLeft="@dimen/margin_left_arrow"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView"
+        android:background="?android:selectableItemBackground"
+        android:clickable="true"
         app:tint="?attr/colorPrimary" />
     <TextView
         android:id="@+id/textView"
@@ -26,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="60dp"
         android:text="@string/favorit_anda"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

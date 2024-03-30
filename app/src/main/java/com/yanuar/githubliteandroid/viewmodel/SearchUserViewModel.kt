@@ -9,8 +9,6 @@ import com.yanuar.githubliteandroid.data.remote.GithubApiService
 import com.yanuar.githubliteandroid.data.remote.NetworkService
 import com.yanuar.githubliteandroid.util.Event
 import kotlinx.coroutines.launch
-
-
 class SearchUserViewModel() : ViewModel() {
     private val _searchResult = MutableLiveData<GithubSearchResponse>()
     val searchResults: LiveData<GithubSearchResponse> = _searchResult
@@ -38,7 +36,7 @@ class SearchUserViewModel() : ViewModel() {
                 }
             } catch (e: Exception) {
                 _snackbarText.value = Event("Mohon Maaf Telah Terjadi Error Harap Pastikan Ponsel Anda Memiliki Akses Internet  ${e.message}")
-                _isLoading.postValue(true) // Loading selesai
+                _isLoading.postValue(true) 
             }
         }
     }
