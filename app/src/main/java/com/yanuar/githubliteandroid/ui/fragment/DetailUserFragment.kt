@@ -5,17 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
+import com.yanuar.githubliteandroid.R
 import com.yanuar.githubliteandroid.data.adapter.TabsPagerAdapter
+import com.yanuar.githubliteandroid.data.database.UserFavDatabase
 import com.yanuar.githubliteandroid.data.model.GithubDetailAccount
+import com.yanuar.githubliteandroid.data.model.UserFav
+import com.yanuar.githubliteandroid.data.repository.UserFavRepository
 import com.yanuar.githubliteandroid.databinding.FragmentDetailUserBinding
 import com.yanuar.githubliteandroid.viewmodel.DetailUserViewModel
+import com.yanuar.githubliteandroid.viewmodel.DetailUserViewModelFactory
 
 class DetailUserFragment : Fragment() {
 
@@ -23,7 +28,8 @@ class DetailUserFragment : Fragment() {
         fun newInstance() = DetailUserFragment()
     }
 
-    private val viewModel: DetailUserViewModel by viewModels()
+    private lateinit var viewModel: DetailUserViewModel
+
     private var _binding: FragmentDetailUserBinding? = null
     private val binding get() = _binding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,11 +51,12 @@ class DetailUserFragment : Fragment() {
             }
         })
     }
-private fun startShimmer() {
-    binding!!.idShimmerFrameTop.startShimmer()
-    binding!!.idShimmerFrameFollower.startShimmer()
-    binding!!.idShimmerFrameFollowing.startShimmer()
-}
+
+    private fun startShimmer() {
+        binding!!.idShimmerFrameTop.startShimmer()
+        binding!!.idShimmerFrameFollower.startShimmer()
+        binding!!.idShimmerFrameFollowing.startShimmer()
+    }
 
     private fun stopShimmer() {
         binding!!.idShimmerFrameTop.hideShimmer()
@@ -58,11 +65,17 @@ private fun startShimmer() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val userDao = UserFavDatabase.getDatabase(requireContext()).userDao()
+        val userFavRepository = UserFavRepository(userDao)
+        val factory = DetailUserViewModelFactory(userFavRepository)
+        viewModel = ViewModelProvider(this, factory).get(DetailUserViewModel::class.java)
         val username = arguments?.getString("username")
         startShimmer()
         viewModel.fetchUserDetail(username!!)
         observeViewModel()
         setupTabBar(username)
+
     }
     private fun setupTabBar(username: String) {
         val adapter = TabsPagerAdapter(this, username)
@@ -94,6 +107,24 @@ private fun startShimmer() {
         binding!!.idTvUsername.setText(users.login)
         binding!!.idTvJumlahFollowed.setText(users.following.toString())
         binding!!.idTvJumlahFollower.setText(users.followers.toString())
+        val username = users.login.toString()
+
+        viewModel.checkUserExistence(username)
+        viewModel.isUserFav.observe(viewLifecycleOwner) { isFav ->
+            val iconRes = if (isFav) R.drawable.baseline_favorite_24 else R.drawable.baseline_favorite_border_24
+            binding!!.btnFav.setImageResource(iconRes)
+        }
+
+        binding!!.btnFav.setOnClickListener {
+            // Pengecekan dan aksi berdasarkan status isFav saat tombol diklik
+            val currentUserFav = UserFav(username, users.avatarUrl)
+            if (viewModel.isUserFav.value == true) {
+                viewModel.deleteUser(currentUserFav)
+            } else {
+                viewModel.insertUser(currentUserFav)
+            }
+        }
+
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

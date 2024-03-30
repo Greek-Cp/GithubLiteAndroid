@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="love_button">love button</string>
+    <string name="home_user">Cari User</string>
+    <string name="favorit_user">favorit user</string>
+</resources>

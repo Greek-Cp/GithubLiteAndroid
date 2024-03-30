@@ -20,7 +20,7 @@ class SearchUserViewModel() : ViewModel() {
     val snackbarText: LiveData<Event<String>> = _snackbarText
     private val githubApiService: GithubApiService = NetworkService.retrofit.create(GithubApiService::class.java)
     fun cariUsers(query: String) {
-        _isLoading.postValue(true) // Loading dimulai
+        _isLoading.postValue(true)
         viewModelScope.launch {
             try {
                 val response = githubApiService.searchUsers(query)

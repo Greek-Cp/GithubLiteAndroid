@@ -2,10 +2,7 @@ package com.yanuar.githubliteandroid.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class GithubUserFollower(
-	@field:SerializedName("GithubUserFollower")
-	val githubUserFollower: List<GithubUserFollowerItem?>? = null
-)
+
 
 data class GithubUserFollowerItem(
 

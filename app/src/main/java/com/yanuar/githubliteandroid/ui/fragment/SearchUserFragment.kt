@@ -1,5 +1,6 @@
 package com.yanuar.githubliteandroid.ui.fragment
 
+import SettingAppPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.yanuar.githubliteandroid.R
@@ -15,14 +18,31 @@ import com.yanuar.githubliteandroid.data.adapter.UserAdapter
 import com.yanuar.githubliteandroid.data.model.ItemsItem
 import com.yanuar.githubliteandroid.databinding.FragmentSearchUserBinding
 import com.yanuar.githubliteandroid.viewmodel.SearchUserViewModel
+import dataStore
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class SearchUserFragment : Fragment() {
     private val viewModel: SearchUserViewModel by viewModels()
     private var _binding: FragmentSearchUserBinding? = null
     private val binding get()= _binding!!
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // TODO: Use the ViewModel
+
+    private val settingPreferences: SettingAppPreferences by lazy {
+        SettingAppPreferences.getInstance(requireContext().dataStore)
+    }
+    private fun darkModeFeature() {
+        settingPreferences.getThemeSetting().asLiveData().observe(viewLifecycleOwner) { isDarkModeActive ->
+            val iconRes = if (isDarkModeActive) R.drawable.baseline_light_mode_24 else R.drawable.baseline_dark_mode_24
+            binding.imageDark.setImageResource(iconRes)
+        }
+
+        // Mengatur OnClickListener untuk toggle dark mode
+        binding.idDarkMode.setOnClickListener {
+            lifecycleScope.launch {
+                val currentMode = settingPreferences.getThemeSetting().first()
+                settingPreferences.saveThemeSetting(!currentMode)
+            }
+        }
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,6 +50,12 @@ class SearchUserFragment : Fragment() {
         setupRecyclerView()
         setupSearchView()
         observeViewModel()
+        binding.idFavButton.setOnClickListener{
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container,FavoritUserFragment())
+                .addToBackStack(null)
+                .commit()
+        }
     }
     private fun setupRecyclerView() {
         binding.idRecUser.layoutManager = LinearLayoutManager(context)
@@ -97,6 +123,7 @@ class SearchUserFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSearchUserBinding.inflate(inflater,container,false)
+        darkModeFeature()
         return binding?.root
     }
     companion object {
